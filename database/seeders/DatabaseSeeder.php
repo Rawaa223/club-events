@@ -9,22 +9,21 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Demo data: 20 members, 12 events, and some attendees for each event.
-     * Run with: php artisan migrate:fresh --seed
+     * php artisan migrate:fresh --seed
      */
     public function run(): void
     {
-        $members = Member::factory()->count(20)->create();
+        // 20 club members
+        $members = Member::factory(20)->create();
 
-        // recycle(): pick each event's organizer from the members above,
-        // instead of letting EventFactory create a brand-new member every time.
-        $events = Event::factory()->count(12)->recycle($members)->create();
+        // 15 events; recycle() picks each organizer from the members above
+        // instead of creating a new member for every event.
+        $events = Event::factory(15)->recycle($members)->create();
 
-        // Fill the pivot table: each event gets a random group of attendees
-        // (never more than its capacity).
+        // Register a random group of members for each event (never more than the capacity).
         foreach ($events as $event) {
-            $count = rand(0, min($event->capacity, 15));
-            $event->attendees()->attach($members->random($count)->pluck('id'));
+            $howMany = rand(2, min(12, $event->capacity));
+            $event->attendees()->attach($members->random($howMany)->pluck('id'));
         }
     }
 }
