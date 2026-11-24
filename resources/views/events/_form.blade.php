@@ -58,12 +58,15 @@
 @endphp
 
 <div class="field @error('attendees') has-error @enderror">
-    <label for="attendees">Attendees <span class="muted">(Ctrl/Cmd + click to select several)</span></label>
-    <select id="attendees" name="attendees[]" multiple size="8">
+    <label>Attendees <span class="muted">(tick everyone who comes)</span></label>
+    <div class="checklist">
         @foreach ($members as $member)
-            <option value="{{ $member->id }}" @selected($selected->contains($member->id))>{{ $member->name }}</option>
+            <label class="check">
+                <input type="checkbox" name="attendees[]" value="{{ $member->id }}" @checked($selected->contains($member->id))>
+                {{ $member->name }}
+            </label>
         @endforeach
-    </select>
+    </div>
     @error('attendees') <p class="error">{{ $message }}</p> @enderror
     @error('attendees.*') <p class="error">{{ $message }}</p> @enderror
 </div>

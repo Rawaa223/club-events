@@ -90,6 +90,11 @@
         .field.has-error input, .field.has-error select, .field.has-error textarea { border-color: var(--danger); }
         .error { color: var(--danger); font-size: .85rem; margin: .3rem 0 0; }
         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .checklist { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: .25rem .75rem; max-height: 260px; overflow-y: auto; padding: .6rem .75rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+        .field.has-error .checklist { border-color: var(--danger); }
+        label.check { display: flex; align-items: center; gap: .5rem; font-weight: 400; font-size: .95rem; margin: 0; padding: .25rem .35rem; border-radius: 6px; cursor: pointer; }
+        label.check:hover { background: var(--bg); }
+        label.check input { width: auto; margin: 0; accent-color: var(--accent); }
 
         /* Tables */
         table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
